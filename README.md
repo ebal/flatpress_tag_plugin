@@ -1,9 +1,7 @@
-# flatpress_tag_plugin
-Tag Plugin for FlatPress v1.1
+# Tag Plugin for FlatPress 1.3
 
-developed originally by Pier Angelo Vendrame
-https://www.pierov.org/2011/08/01/plugin-tag-v25-flatpress/
+developed originally by [Piero Angelo Vendrame](https://www.pierov.org/2011/08/01/plugin-tag-v25-flatpress/)
 
-Modified to work with php7 flatpress
+modified to work with [FlatPress](https://github.com/flatpressblog/flatpress) 1.3 under PHP 7.1 to 8.1 and with Smarty 4.x.
 
-https://github.com/flatpressblog/flatpress
+Documentation on the FlatPress wiki: https://wiki.flatpress.org/res:plugins:tag
