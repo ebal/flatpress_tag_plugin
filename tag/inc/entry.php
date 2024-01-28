@@ -179,11 +179,21 @@ class plugin_tag_entry {
 	 *        	if there aren't tags...
 	 * @returns: The tag list or $default
 	 */
-	function smarty_modifier($array, $glue = ', ', $default = 'No Tags') {
+	function smarty_modifier($array, $glue = ', ', $default = 'No Tag') {
 		// If there aren't tags, let's return $default
 		if (!is_array($array) || !count($array)) {
 			return $default;
 		}
+
+		$entries = $draft = null;
+
+		$count = 0;
+
+		$link = null;
+
+		$titleadd = '';
+
+		$links = array();
 
 		// Load lang
 		global $lang;
@@ -192,22 +202,26 @@ class plugin_tag_entry {
 		}
 		$plang = $lang ['plugin'] ['tag'];
 
-		$links = array();
 		// Ok, foreach already checked
 		foreach ($array as $v) {
-			// To be compatible with Flatpress System, we use the filter
-			$link = apply_filters('tag_link', $v);
-
 			// For LAttilaD: show number of entries
 			$entries = $this->tagdb->taggedEntries($v);
-			$count = count($entries);
-			$titleadd = $count == 1 ? $plang ['oneentry'] : $count . $plang ['entries'];
-			$titleadd = " ({$titleadd})";
 
-			$v = wp_specialchars($v, true);
-			$links [] = "\n" . '<a href="' . $link . '" title="' . $v . $titleadd . '">' . $v . '</a>';
+			// Check if the entry is a draft
+			if ($draft == 0 && is_array($entries) && count($entries) >= 1) {
+				// To be compatible with Flatpress System, we use the filter
+				$link = apply_filters('tag_link', $v);
+
+				$count = count($entries);
+				$v = wp_specialchars($v, true);
+			}
+
+		$titleadd = $count == 1 ? $plang ['oneentry'] : $count . $plang ['entries'];
+		$titleadd = "({$titleadd})";
+		$links [] = "\n" . '<a href="' . $link . '" title="' . $v . ' ' . $titleadd . '">' . $v . '</a>';
 		}
-		return implode($glue, $links);
+
+	return implode($glue, $links);
 	}
 
 	/**
