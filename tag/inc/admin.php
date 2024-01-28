@@ -295,12 +295,18 @@ class plugin_tag_admin {
 		// Get the simple tags
 		if (!empty($this->simplebody)) {
 			$entry = array(
-				'content' => $this->simplebody
+				'entry' => $this->simplebody
 			);
 		} else {
 			$entry = $smarty->getTemplateVars('post');
 		}
-		$this->entry->tag_list($entry ['content']);
+		if (empty($this->simplebody)) {
+				$entry = array(
+				'content' => 'content'
+			);
+			$entry = $entry ['content'];
+			$entry = $this->entry->tag_list($entry);
+		}
 		$tags = $this->entry->tags;
 		if (!empty($_POST ['taginput'])) {
 			$tags = array_merge((array) $tags, explode(',', $_POST ['taginput']));
@@ -315,6 +321,7 @@ class plugin_tag_admin {
 
 		return true;
 	}
+
 
 	/**
 	 * This function prints the stylesheet of the template
